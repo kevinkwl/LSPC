@@ -15,7 +15,7 @@ class TrainWrapper(object):
         model = self.ModelClass(self.options, identity)
         model.train(X, y)
         print("model {} took {:.2f} seconds\n".format(identity, time.time() - start))
-        return model
+        return identity
 
 
 class PredictWrapper(object):

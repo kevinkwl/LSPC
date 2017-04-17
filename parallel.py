@@ -11,8 +11,10 @@ def parallel_train(train_func, Xs, Ys, n_jobs=-1):
     :param n_jobs: train in n separate process (-1 means use all cpu cores)
     :return: a list of models (train_func return value)
     """
-    minmodules = len(Ys)
+    minmodules = len(Xs[0])
     maxmodules = len(Xs)
 
-    return Parallel(n_jobs=n_jobs)(delayed(train_func)(Xs[i], Ys[j], (i, j))
+    return Parallel(n_jobs=n_jobs)(delayed(train_func)(Xs[i][j],
+                                                       Ys[i][j],
+                                                       (i, j))
                                    for i in range(maxmodules) for j in range(minmodules))
