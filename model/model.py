@@ -5,7 +5,7 @@ class Model(object):
     def train(self, X, y):
         pass
 
-    def predict(self, X, y=None):
+    def predict(self, X, y=None, options=None):
         pass
 
     def evaluate(self, true_y, pred):
