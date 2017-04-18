@@ -6,12 +6,6 @@ def checknew(i,tag,a1):
         return 1
     return 0
 
-    if i == 0:
-        return 1
-    if tag[i][:3] != tag[i-1][:3]:
-        return 1
-    return 0
-
 
 def addAns(ans,ansx,a,ax):  # checked
     ans.append([])
@@ -63,7 +57,17 @@ def add(i,tag,feature,a1,a1x,a2,a2x,ans,ansx,k):
     a1.append(tag[i])
     a1x.append(feature[i])
 
-def divide(tag,feature,size_part,sort_tag):
+def divide(tag,feature,size_part,sort_tag=2):
+    """
+    
+    :param tag: a list of patent tags 
+    :param feature: a list of feature values
+    :param size_part: decomposition task size (data points)
+    :param sort_tag: 0 for class-decomposition, 2 for random-decomposition, 1 for nothing
+    :return: (posXs, negXs), posXs is a list of partitioned positive class training data
+    """
+
+
     # where size_n stands for how many data,tag mean where it belongs to like A01G/9/02 and 
     # features contains all the inner data(which is very long)
     size_n=len(tag)                                     # size_part means how many data it contains in a small SVM
@@ -71,10 +75,10 @@ def divide(tag,feature,size_part,sort_tag):
         zipped = zip(tag, feature)
         tag, feature = zip(*sorted(zipped, key=lambda x: x[0]))
     if (sort_tag==2):
-        zipped = zip(tag, feature)
+        zipped = list(zip(tag, feature))
         import numpy as np
         np.random.shuffle(zipped)
-        tag, feature = zip(*zipped)
+        tag, feature = list(zip(*zipped))
 
     pos1 = []  # This store the integ positive one , if some rest, throw to pos2
     pos1x = []
@@ -100,6 +104,5 @@ def divide(tag,feature,size_part,sort_tag):
     merge(neg1, neg1x, neg2, neg2x)
     throw_remain(neg1, neg1x, neg2, neg2x, ansneg, ansnegx, size_part)
     addAns(ansneg, ansnegx, neg2, neg2x)
-    print(anspos,ansneg)
     return ansposx,ansnegx
 
