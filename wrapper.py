@@ -13,8 +13,14 @@ class TrainWrapper(object):
 
     def __call__(self, X, y, identity=0, testX=None):
         start = time.time()
-        model = self.ModelClass(self.options, identity)
-        model.train(X, y)
+        model = self.ModelClass(self.options)
+        try:
+            model.train(X, y)
+        except ValueError:
+            print("Error !!!!!!")
+            import sys
+            sys.exit(-1)
+
         print("training model {} took {:.2f} seconds\n".format(identity, time.time() - start))
 
         if testX is not None:
@@ -30,6 +36,9 @@ class TrainWrapper(object):
 
 
 def minmax(pred_val, pred_label, minmax_shape):
+    # timer
+    start = time.time()
+
     Nmax = minmax_shape[0]
     Nmin = minmax_shape[1]
 
@@ -57,5 +66,8 @@ def minmax(pred_val, pred_label, minmax_shape):
     # max modules
     output_val = np.max(max_in_val, axis=0)
     output_label = np.max(max_in_label, axis=0)
+
+    end = time.time()
+    print("minmax took: {:.2f}s".format(end - start))
 
     return output_label, output_val

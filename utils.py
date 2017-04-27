@@ -35,8 +35,22 @@ def getData(posXs, negXs, posTag=1, negTag=-1):
     return Xdata, Ydata
 
 
-def readData(file):
+def readData(file, return_scipy=False):
     from liblinearutil import svm_read_problem
-    y, X = svm_read_problem(file + ".svm")
+    y, X = svm_read_problem(file + ".svm", return_scipy=return_scipy)
     tag  = open(file + ".tag").readlines()
     return y, X, tag
+
+from config import SAVED
+def saveResult(filename, pred_label, pred_value):
+    with open(SAVED + filename, "w") as saved:
+        for (label, value) in zip(pred_label, pred_value):
+            saved.write("{} {}\n".format(label, value))
+
+def readResult(filename):
+    def splitit(line):
+        s = line.split()
+        return int(s[0]), float(s[1])
+    with open(SAVED + filename, "w") as saved:
+        zipped = [splitit(line) for line in saved]
+        return list(zip(*zipped))

@@ -6,7 +6,7 @@ import liblinearutil as svm
 
 
 class SVMModel(Model):
-    def __init__(self, options="", identity=0):
+    def __init__(self, options=""):
         Model.__init__(self, options=options)
         self.model = None
 

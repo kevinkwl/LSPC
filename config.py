@@ -8,3 +8,6 @@ SAVE_PATH = "saved_model/"
 TRAIN_FILE = "data/train.txt"
 TEST_FILE = "data/test.txt"
 LIBLINEAR_TRAINING_OPTIONS = "-q"
+
+
+SAVED = "saved/"

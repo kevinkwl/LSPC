@@ -1,7 +1,7 @@
 from joblib import Parallel, delayed
 
 
-def parallel_train(train_func, Xs, Ys, n_jobs=-1, testX=None):
+def parallel_train(train_func, Xs, Ys, n_jobs=8, testX=None):
     """
     train models in parallel (M3-network)
     
