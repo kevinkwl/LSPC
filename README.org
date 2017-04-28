@@ -1,3 +1,13 @@
 #+TITLE: LSPC
 
-Patent classification
+Patent classification using Liblinear
+
+* Structure
+[[file:doc/arch.png]]
+
+* Usage
+#+BEGIN_SRC shell
+$ python3 main.py <svm or mlp> <module_size> <split method: random or class> 
+#+END_SRC
+
+See [[file:doc/report.pdf][report]] for more information.
